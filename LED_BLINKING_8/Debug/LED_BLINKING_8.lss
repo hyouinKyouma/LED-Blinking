@@ -1,0 +1,139 @@
+
+LED_BLINKING_8.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ae  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .comment      00000030  00000000  00000000  00000102  2**0
+                  CONTENTS, READONLY
+  2 .debug_aranges 00000020  00000000  00000000  00000132  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   00000177  00000000  00000000  00000152  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 000000fa  00000000  00000000  000002c9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   0000015a  00000000  00000000  000003c3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  00000024  00000000  00000000  00000520  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000017b  00000000  00000000  00000544  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00000041  00000000  00000000  000006bf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000010  00000000  00000000  00000700  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 55 00 	jmp	0xaa	; 0xaa <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+#include <util/delay.h>
+
+int main(void)
+{
+	const int d=500;
+	DDRB=0xff;
+  6c:	8f ef       	ldi	r24, 0xFF	; 255
+  6e:	87 bb       	out	0x17, r24	; 23
+  70:	89 e0       	ldi	r24, 0x09	; 9
+    for (char i=0;i<9;i++)
+    {
+		PORTB=0xaa;
+  72:	2a ea       	ldi	r18, 0xAA	; 170
+		_delay_ms(d);
+		PORTB=0x55;
+  74:	95 e5       	ldi	r25, 0x55	; 85
+{
+	const int d=500;
+	DDRB=0xff;
+    for (char i=0;i<9;i++)
+    {
+		PORTB=0xaa;
+  76:	28 bb       	out	0x18, r18	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  78:	3f e9       	ldi	r19, 0x9F	; 159
+  7a:	46 e8       	ldi	r20, 0x86	; 134
+  7c:	51 e0       	ldi	r21, 0x01	; 1
+  7e:	31 50       	subi	r19, 0x01	; 1
+  80:	40 40       	sbci	r20, 0x00	; 0
+  82:	50 40       	sbci	r21, 0x00	; 0
+  84:	e1 f7       	brne	.-8      	; 0x7e <main+0x12>
+  86:	00 c0       	rjmp	.+0      	; 0x88 <main+0x1c>
+  88:	00 00       	nop
+		_delay_ms(d);
+		PORTB=0x55;
+  8a:	98 bb       	out	0x18, r25	; 24
+  8c:	3f e9       	ldi	r19, 0x9F	; 159
+  8e:	46 e8       	ldi	r20, 0x86	; 134
+  90:	51 e0       	ldi	r21, 0x01	; 1
+  92:	31 50       	subi	r19, 0x01	; 1
+  94:	40 40       	sbci	r20, 0x00	; 0
+  96:	50 40       	sbci	r21, 0x00	; 0
+  98:	e1 f7       	brne	.-8      	; 0x92 <main+0x26>
+  9a:	00 c0       	rjmp	.+0      	; 0x9c <main+0x30>
+  9c:	00 00       	nop
+  9e:	81 50       	subi	r24, 0x01	; 1
+
+int main(void)
+{
+	const int d=500;
+	DDRB=0xff;
+    for (char i=0;i<9;i++)
+  a0:	51 f7       	brne	.-44     	; 0x76 <main+0xa>
+		PORTB=0xaa;
+		_delay_ms(d);
+		PORTB=0x55;
+		_delay_ms(d);
+    }
+	PORTB=0x00;
+  a2:	18 ba       	out	0x18, r1	; 24
+  a4:	80 e0       	ldi	r24, 0x00	; 0
+  a6:	90 e0       	ldi	r25, 0x00	; 0
+  a8:	08 95       	ret
+
+000000aa <_exit>:
+  aa:	f8 94       	cli
+
+000000ac <__stop_program>:
+  ac:	ff cf       	rjmp	.-2      	; 0xac <__stop_program>
